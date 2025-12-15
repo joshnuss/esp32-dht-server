@@ -11,7 +11,7 @@ d = dht.DHT11(pin)
 timer = Timer(1)
 temperature = 0
 
-def start_network():
+def wlan_connect():
     # activate wlan
     wlan.active(True)
 
@@ -29,7 +29,7 @@ def start_network():
         led.off()
         sleep(0.2)
 
-def tick(timer):
+def update(timer):
     global led, d, temperature
 
     led.toggle()
@@ -37,9 +37,9 @@ def tick(timer):
     temperature = d.temperature()
 
 # once per second
-timer.init(freq=0.5, mode=Timer.PERIODIC, callback=tick)
+timer.init(freq=0.5, mode=Timer.PERIODIC, callback=update)
 
-start_network()
+wlan_connect()
 
 # print ip
 ip = wlan.ipconfig('addr4')
