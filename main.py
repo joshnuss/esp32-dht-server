@@ -1,36 +1,33 @@
 import dht
 from time import sleep
-from machine import Pin, Timer
-
-import machine
+from machine import Pin, Timer, idle
 from network import WLAN, STA_IF
 from settings import WLAN_SSID, WLAN_PASSWORD
 
-print(WLAN_SSID)
-print(WLAN_PASSWORD)
-
-# station interface
 wlan = WLAN(STA_IF)
-
-# activate wlan
-wlan.active(True)
-
-# connect to router
-wlan.connect(WLAN_SSID, WLAN_PASSWORD)
-
-# wait for wifi to connect
-while not wlan.isconnected():
-    machine.idle() 
-
-# get ip
-ip = wlan.ipconfig('addr4')
-print(ip[0])
-
 led = Pin(8, Pin.OUT)
 pin = Pin(4)
 d = dht.DHT11(pin)
 timer = Timer(1)
-temperature = 20
+temperature = 0
+
+def start_network():
+    # activate wlan
+    wlan.active(True)
+
+    # connect to router
+    wlan.connect(WLAN_SSID, WLAN_PASSWORD)
+
+    # wait unitl wifi connects
+    while not wlan.isconnected():
+        idle()
+
+    # blink leds
+    for n in range(5):
+        led.on()
+        sleep(0.2)
+        led.off()
+        sleep(0.2)
 
 def tick(timer):
     global led, d, temperature
@@ -41,6 +38,12 @@ def tick(timer):
 
 # once per second
 timer.init(freq=0.5, mode=Timer.PERIODIC, callback=tick)
+
+start_network()
+
+# print ip
+ip = wlan.ipconfig('addr4')
+print(ip[0])
 
 from microdot import Microdot, Response
 
