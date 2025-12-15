@@ -14,3 +14,9 @@ WLAN_PASSWORD = "<password>"
 ```sh
 mpremote cp *.py :
 ```
+
+## Running
+
+```sh
+mpremote run main.py
+```
