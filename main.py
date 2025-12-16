@@ -64,7 +64,7 @@ async def index(request):
                     color: #444;
                     display: grid;
                     place-items: center;
-                    font-size: 4rem;
+                    font-size: 10rem;
                     font-family: Inter, sans;
                 }}
 
