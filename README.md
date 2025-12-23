@@ -1,4 +1,4 @@
-An HTTP-based temperature sensor using an ESP32 Super Mini and a DHT11 sensor.
+An HTTP-based temperature sensor using an ESP32 Super Mini and a DHT22 sensor.
 
 ## Setup environment
 

@@ -6,8 +6,8 @@ from settings import WLAN_SSID, WLAN_PASSWORD
 
 wlan = WLAN(STA_IF)
 led = Pin(8, Pin.OUT)
-pin = Pin(4)
-d = dht.DHT11(pin)
+pin = Pin(3)
+d = dht.DHT22(pin)
 timer = Timer(1)
 temperature = 0
 
